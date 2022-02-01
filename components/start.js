@@ -47,36 +47,32 @@ export class Start extends React.Component {
         <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
+
         <View style={styles.colorBox}>
-
+          
           <View style={styles.colorTextBox}>
-
-        <Text style= {styles.colorText}>Choose Background Color:</Text></View>
+        <Text style= {styles.colorText}>Choose Background Color:</Text>
+        </View>
 
         <View style={styles.color}>
-          
           <TouchableOpacity title='' color={colors.color1}  style={styles.color1} onPress={() => this.changeBgColor(colors.color1)}></TouchableOpacity>
-      
-          
-
         <TouchableOpacity style={styles.color2}  onPress={() => this.changeBgColor(colors.color2)}></TouchableOpacity>
-   
-   
         <TouchableOpacity style={styles.color3} onPress={() => this.changeBgColor(colors.color3)}></TouchableOpacity>
-      
-        
         <TouchableOpacity style={styles.color4} onPress={() => this.changeBgColor(colors.color4)}></TouchableOpacity>
-        </View></View>
+        </View>
+        
+        </View>
         
         
         <View style={styles.button}>
           <Button color='#757083' style={styles.buttonHeight}
           title="Start Chatting" 
-          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}
-        /></View>
+          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}/>
+        </View>
         </View>
         
-      </View></ImageBackground>
+      </View>
+      </ImageBackground>
     )
   }
 };
@@ -94,6 +90,7 @@ const styles = StyleSheet.create({
      backgroundColor: '#FFFFFF',
      justifyContent: 'space-evenly',
      alignItems: 'center',
+     flexShrink:0,
      
   
    },
@@ -123,10 +120,14 @@ const styles = StyleSheet.create({
      width: 50,
      height: 50,
      borderRadius: 25, 
-     width: '88%',
+     paddingRight: 10,
+     marginLeft: 0,
+     width: 250,
      flexDirection: 'row',
      justifyContent: 'space-between',
      flexShrink: 0,
+     alignItems: "flex-start",
+     flexShrink:0,
    },
    color1: {
     backgroundColor: '#090C08',
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
    opacity: .5,
    borderColor: '#757083',
    borderWidth: 1,
+
   },
   icon: {
     padding: 10,
@@ -184,11 +186,12 @@ const styles = StyleSheet.create({
   colorText: {
     color: '#757083', 
     opacity: .5,
-    marginBottom: 5,
+    marginBottom: 9,
   },
   colorTextBox: {
-    alignItems: "flex-start",
+    alignItems: "stretch",
     width: '88%',
      flexDirection: 'row',
+     justifyContent: 'space-between',
   }
 })
