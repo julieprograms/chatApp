@@ -23,6 +23,12 @@ export class Start extends React.Component {
   }
 };
 
+onFocus() {
+
+      this.textInput.setNativeProps({
+        style: { height: '80%' }
+      }) 
+    }
 
 
   
@@ -43,11 +49,11 @@ export class Start extends React.Component {
 
         <Text style={styles.title}>ChatApp</Text>
       
-        <View style={styles.box1}> 
+        <View style={styles.box1} ref={c => { this.textInput = c}}> 
 
         <View style={styles.input}>
         <Icon name="user" size={30} color="#888" style={styles.icon}/>
-        <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
+        <TextInput  onFocus={ () => this.onFocus() } style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
 
@@ -87,21 +93,25 @@ const styles = StyleSheet.create({
       flex:1,
       justifyContent: 'center', 
       alignItems: 'center', 
+      flexShrink: 1,
    },
    box1: {
+   
     marginBottom: 30,
      height: '44%',
      width: '88%',
      backgroundColor: '#FFFFFF',
      justifyContent: 'space-evenly',
      alignItems: 'center',
+     flexShrink: 0,
+
    },
    title: {
      flex: 1,
      fontSize: 45,
      fontWeight: 'bold',
      color: '#FFFFFF',
-     marginTop: 60,
+     marginTop: 50,
      justifyContent: 'center', 
       alignItems: 'center',
    },
