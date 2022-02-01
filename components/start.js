@@ -39,14 +39,17 @@ export class Start extends React.Component {
     <ImageBackground source={require('../BgImage.png')} resizeMode="cover" style={styles.image}>
       <View style={styles.container}>
         
+
         <Text style={styles.title}>ChatApp</Text>
       
         <View style={styles.box1}> 
+
         <View style={styles.input}>
         <Icon name="user" size={30} color="#888" style={styles.icon}/>
         <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
+
 
         <View style={styles.colorBox}>
           
@@ -63,12 +66,15 @@ export class Start extends React.Component {
         
         </View>
         
+
         
         <View style={styles.button}>
           <Button color='#757083' style={styles.buttonHeight}
           title="Start Chatting" 
-          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}/>
+          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}/> 
         </View>
+
+
         </View>
         
       </View>
@@ -91,6 +97,9 @@ const styles = StyleSheet.create({
      justifyContent: 'space-evenly',
      alignItems: 'center',
      flexShrink:0,
+     flexGrow: 0,
+     maxWidth: '88%',
+     maxHeight: '44%',
      
   
    },
@@ -109,18 +118,20 @@ const styles = StyleSheet.create({
      height: '100%'
    },
    button: {
+     
      width: '88%',
-     height: 60,
-     color: '#FFFFFF'
+     height: 50,
+     color: '#FFFFFF',
+     width: '88%',
    },
    buttonHeight: {
      minHeight: 70,
    },
-   color: {
+   color: { 
      width: 50,
      height: 50,
      borderRadius: 25, 
-     paddingRight: 10,
+     marginRight: 10,
      marginLeft: 0,
      width: 250,
      flexDirection: 'row',
@@ -128,13 +139,13 @@ const styles = StyleSheet.create({
      flexShrink: 0,
      alignItems: "flex-start",
      flexShrink:0,
+     
    },
    color1: {
     backgroundColor: '#090C08',
     width: 50,
     height: 50,
     borderRadius: 25,
-    
     borderColor:'#090C08',
    },
    color2: {
@@ -157,9 +168,11 @@ const styles = StyleSheet.create({
   },
   colorBox: {
     width: '88%',
-    height: 50,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center', 
+    position: 'relative',
+    marginRight: 40,
   
   },
   input: {
@@ -173,15 +186,16 @@ const styles = StyleSheet.create({
    opacity: .5,
    borderColor: '#757083',
    borderWidth: 1,
+   position: 'relative'
 
   },
   icon: {
-    padding: 10,
+    margin: 10,
     opacity: .50, 
   },
   inputText: {
-    paddingTop:9,
-    paddingLeft: 2,
+    marginTop:9,
+    marginLeft: 2,
   },
   colorText: {
     color: '#757083', 
