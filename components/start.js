@@ -25,7 +25,7 @@ export class Start extends React.Component {
 
 
 
-  
+  /* change the background color of the chat screen!*/
   changeBgColor = (newColor) => {
     bgColor = colors.color1;
     this.setState({ bgColor: newColor });
@@ -33,7 +33,7 @@ export class Start extends React.Component {
 
 
 
-  
+  /* box1 is the box for: input(input,icon and text), colorBox(colorText(Box) and color), button(actual button buttonHeight) */
 
   render() {
     return (
@@ -42,6 +42,7 @@ export class Start extends React.Component {
         
 
         <Text style={styles.title}>ChatApp</Text>
+      
       
         <View style={styles.box1} > 
 
