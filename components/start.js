@@ -20,7 +20,8 @@ export class Start extends React.Component {
     this.state = { 
       name: '',
       bgColor: '',
-  } };
+  }
+};
 
 
 
@@ -69,9 +70,7 @@ export class Start extends React.Component {
 
         
         <View style={styles.button}>
-          <Button color='#757083' style={styles.buttonHeight}
-          title="Start Chatting" 
-          onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}/> 
+          <TouchableOpacity style={styles.buttonHeight} onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, bgColor: this.state.bgColor } )}><Text style={styles.buttonText}>Start Chatting</Text></TouchableOpacity> 
         </View>
 
 
@@ -118,16 +117,23 @@ const styles = StyleSheet.create({
      height: '100%'
    },
    button: {
-     
+    height: 70, 
      width: '88%',
+     marginBottom: -15,
    },
-   buttonHeight: {
-     minHeight: 70,
-     paddingVertical: 500,
-     color: '#FFFFFF',
+   buttonHeight: { 
      backgroundColor: '#757083',
+     height: 60, 
+     width: '100%',
+     flexDirection: 'row',
+     justifyContent: 'space-around',
+     alignItems: 'stretch'
+   },
+   buttonText: {
+     color: '#FFFFFF',
      fontSize: 16,
      fontWeight: 'bold',
+     marginTop:15,
    },
    color: { 
      width: 50,
@@ -189,7 +195,8 @@ const styles = StyleSheet.create({
    borderColor: '#757083',
    borderWidth: 1,
    position: 'relative',
-   
+   marginTop: -5,
+   marginBottom: -5,
 
   },
   icon: {
@@ -204,6 +211,7 @@ const styles = StyleSheet.create({
     color: '#757083', 
     opacity: .5,
     marginBottom: 9,
+    marginLeft: 5,
   },
   colorTextBox: {
     alignItems: "stretch",
