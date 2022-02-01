@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button,  StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, Text,   StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -23,15 +23,6 @@ export class Start extends React.Component {
   }
 };
 
-onFocus() {
-
-     this.textInput.setNativeProps({
-        style: { maxHeight: 200,
-        marginBottom: 190, }
-      }) 
-     
-    }
-
 
   
   changeBgColor = (newColor) => {
@@ -45,17 +36,18 @@ onFocus() {
 
   render() {
     return (
+    
     <ImageBackground source={require('../BgImage.png')} resizeMode="cover" style={styles.image}>
       <View style={styles.container}>
         
 
         <Text style={styles.title}>ChatApp</Text>
       
-        <View style={styles.box1} ref={c => { this.textInput = c}}> 
+        <View style={styles.box1} > 
 
         <View style={styles.input}>
         <Icon name="user" size={30} color="#888" style={styles.icon}/>
-        <TextInput  onFocus={ () => this.onFocus() } style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
+        <TextInput style={styles.inputText}  onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
 
