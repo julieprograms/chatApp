@@ -95,12 +95,6 @@ const styles = StyleSheet.create({
      backgroundColor: '#FFFFFF',
      justifyContent: 'space-evenly',
      alignItems: 'center',
-     flexShrink:0,
-     flexGrow: 0,
-     maxWidth: '88%',
-     maxHeight: '44%',
-     
-  
    },
    title: {
      flex: 1,
@@ -109,17 +103,18 @@ const styles = StyleSheet.create({
      color: '#FFFFFF',
      marginTop: 60,
      justifyContent: 'center', 
-      alignItems: 'center' 
+      alignItems: 'center',
    },
    image:{
      justifyContent:'center',
      width: '100%',
-     height: '100%'
+     height: '100%', 
    },
    button: {
     height: 70, 
      width: '88%',
      marginBottom: -15,
+     flexShrink: 0,
    },
    buttonHeight: { 
      backgroundColor: '#757083',
@@ -181,6 +176,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     position: 'relative',
     marginRight: 40,
+    flexShrink: 0,
   
   },
   input: {
@@ -193,6 +189,8 @@ const styles = StyleSheet.create({
    position: 'relative',
    marginTop: -5,
    marginBottom: -5,
+   flexShrink: 0,
+
 
   },
   icon: {
