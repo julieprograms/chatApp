@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,   StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Button,  StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -24,6 +24,7 @@ export class Start extends React.Component {
 };
 
 
+
   
   changeBgColor = (newColor) => {
     bgColor = colors.color1;
@@ -36,7 +37,6 @@ export class Start extends React.Component {
 
   render() {
     return (
-    
     <ImageBackground source={require('../BgImage.png')} resizeMode="cover" style={styles.image}>
       <View style={styles.container}>
         
@@ -47,7 +47,7 @@ export class Start extends React.Component {
 
         <View style={styles.input}>
         <Icon name="user" size={30} color="#888" style={styles.icon}/>
-        <TextInput style={styles.inputText}  onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
+        <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
    box1: {
    
     marginBottom: 30,
-     minHeight: '44%',
+     height: '44%',
      width: '88%',
      backgroundColor: '#FFFFFF',
      justifyContent: 'space-evenly',
