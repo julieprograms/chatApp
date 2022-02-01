@@ -3,15 +3,19 @@ import { View, Text, StyleSheet} from 'react-native';
 
 
 export class Chat extends React.Component {
-  render() {
+  componentDidMount() {
     let name = this.props.route.params.name;
-    let bgColor = this.props.route.params.bgColor;
-  // OR ...
-    // let { name } = this.props.route.params;
-
     this.props.navigation.setOptions({ title: name });
+ // OR ...
+    // let { name } = this.props.route.params;
+  }
 
 
+
+  render() {
+    
+    let bgColor = this.props.route.params.bgColor;
+ 
     return (
       <View style={styles.container}>
         <View style={{...styles.container, backgroundColor: bgColor}}>

@@ -25,9 +25,11 @@ export class Start extends React.Component {
 
 onFocus() {
 
-      this.textInput.setNativeProps({
-        style: { height: '80%' }
+     this.textInput.setNativeProps({
+        style: { maxHeight: 200,
+        marginBottom: 190, }
       }) 
+     
     }
 
 
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
    box1: {
    
     marginBottom: 30,
-     height: '44%',
+     minHeight: '44%',
      width: '88%',
      backgroundColor: '#FFFFFF',
      justifyContent: 'space-evenly',
