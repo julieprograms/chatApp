@@ -186,11 +186,8 @@ const styles = StyleSheet.create({
   input: {
     alignItems: "flex-start",
     flexDirection: "row",
-    height: 50,
+    height: 60,
     width: '88%',
-    fontSize: 16,
-    fontWeight: '300',
-    color: '#757083',
    borderColor: '#757083',
    borderWidth: 1,
    position: 'relative',
@@ -203,9 +200,12 @@ const styles = StyleSheet.create({
     opacity: .5, 
   },
   inputText: {
-    marginTop:9,
+    marginTop:15,
     marginLeft: 2,
     opacity: .5,
+    fontSize: 16,
+    fontWeight: '300',
+    color: '#757083',
   },
   colorText: {
     color: '#757083',
