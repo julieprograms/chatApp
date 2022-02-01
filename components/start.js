@@ -44,11 +44,15 @@ export class Start extends React.Component {
         <View style={styles.box1}> 
         <View style={styles.input}>
         <Icon name="user" size={30} color="#888" style={styles.icon}/>
-        <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='enter your name here' />
+        <TextInput style={styles.inputText} onChangeText={(name) => this.setState({name})} value={this.state.name} placeholder='Your Name' />
         </View>
         
         <View style={styles.colorBox}>
-        <Text>Choose Background Color:</Text>
+
+          <View style={styles.colorTextBox}>
+
+        <Text style= {styles.colorText}>Choose Background Color:</Text></View>
+
         <View style={styles.color}>
           
           <TouchableOpacity title='' color={colors.color1}  style={styles.color1} onPress={() => this.changeBgColor(colors.color1)}></TouchableOpacity>
@@ -174,7 +178,17 @@ const styles = StyleSheet.create({
     opacity: .50, 
   },
   inputText: {
-    paddingTop:6,
+    paddingTop:9,
     paddingLeft: 2,
+  },
+  colorText: {
+    color: '#757083', 
+    opacity: .5,
+    marginBottom: 5,
+  },
+  colorTextBox: {
+    alignItems: "flex-start",
+    width: '88%',
+     flexDirection: 'row',
   }
 })
