@@ -120,12 +120,14 @@ const styles = StyleSheet.create({
    button: {
      
      width: '88%',
-     height: 50,
-     color: '#FFFFFF',
-     width: '88%',
    },
    buttonHeight: {
      minHeight: 70,
+     paddingVertical: 500,
+     color: '#FFFFFF',
+     backgroundColor: '#757083',
+     fontSize: 16,
+     fontWeight: 'bold',
    },
    color: { 
      width: 50,
@@ -186,7 +188,8 @@ const styles = StyleSheet.create({
    opacity: .5,
    borderColor: '#757083',
    borderWidth: 1,
-   position: 'relative'
+   position: 'relative',
+   
 
   },
   icon: {
