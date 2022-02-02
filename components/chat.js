@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet} from 'react-native';
-import { Bubble, GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, Day, SystemMessage, GiftedChat } from 'react-native-gifted-chat';
 import { Platform, KeyboardAvoidingView } from 'react-native';
 
 
@@ -58,8 +58,32 @@ renderBubble(props) {
     }}
     />
   )
+};
+
+
+// change the styles for system messages
+renderSystemMessage(props) {
+  return (
+    <SystemMessage
+      {...props}
+      textStyle={{
+        color: "#fff",
+      }}
+    />
+  );
 }
 
+// custom setting for the <Day/> message
+  renderDay(props) {
+    return (
+      <Day
+        {...props}
+        textStyle={{
+          color: "#fff",
+        }}
+      />
+    );
+  }
 
 
   render() {
@@ -73,6 +97,8 @@ renderBubble(props) {
         
   <GiftedChat
   renderBubble={this.renderBubble.bind(this)}
+  renderSystemMessage={this.renderSystemMessage.bind(this)}
+  renderDay={this.renderDay.bind(this)}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
