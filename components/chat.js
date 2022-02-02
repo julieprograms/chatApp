@@ -40,13 +40,14 @@ export class Chat extends React.Component {
     })
   };
 
-
+//attaches messages to chat
   onSend(messages = []) {
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));
   };
 
+//customizes text bubbles
 renderBubble(props) {
   return (
     <Bubble
@@ -61,7 +62,7 @@ renderBubble(props) {
 };
 
 
-// change the styles for system messages
+// customizes system messages
 renderSystemMessage(props) {
   return (
     <SystemMessage
@@ -73,7 +74,7 @@ renderSystemMessage(props) {
   );
 }
 
-// custom setting for the <Day/> message
+// customizes day messages
   renderDay(props) {
     return (
       <Day
