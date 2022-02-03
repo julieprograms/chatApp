@@ -23,7 +23,7 @@ export default class App extends Component {
       <StatusBar />
       <Stack.Navigator initialRouteName='Start'>
         <Stack.Screen name='Start' component={Start} />
-        <Stack.Screen name='Chat' component={Chat} />
+        <Stack.Screen name='Chat' component={Chat} options={{ title: 'Welcome!' }}/>
       </Stack.Navigator>
     </NavigationContainer>
     
