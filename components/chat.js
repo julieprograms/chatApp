@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView} from 'react-native';
 import { Bubble, Day, SystemMessage, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import 'firebase/firestore';
+
+
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -14,8 +17,8 @@ import NetInfo from '@react-native-community/netinfo';
 //import firebase from 'firebase';
 //import firestore from 'firebase';
 
-// const firebase = require('firebase');
-// require('firebase/firestore');
+//const firebase = require('firebase');
+ //require('firebase/firestore');
 
 
 //configuring firebase keys
@@ -29,6 +32,8 @@ const firebaseConfig = {
   appId: "1:842497082223:web:63ea75695aab8e9cfade9a",
   measurementId: "G-6J2BETDT0Y"
 };
+
+
 
 export class Chat extends React.Component {
   constructor() {
@@ -49,6 +54,7 @@ export class Chat extends React.Component {
     //initialize firebase
     if(!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
+     
     }
     // const app = initializeApp(firebaseConfig);
     // const analytics = getAnalytics(app);
@@ -263,14 +269,15 @@ renderSystemMessage(props) {
 		}
 	}
 
-
-
-
+  
   componentWillUnmount() {
-    // stop listening to authentication
-    this.authUnsubscribe();
-    // stop listening for changes
-    this.unsubscribe();
+    // close connections when we close the app
+    NetInfo.fetch().then((connection) => {
+      if (connection.isConnected) {
+        this.unsubscribe();
+        this.authUnsubscribe();
+      }
+    });
   }
   
 
