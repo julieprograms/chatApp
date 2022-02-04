@@ -202,6 +202,7 @@ renderSystemMessage(props) {
 
   render() {
    
+    
     let bgColor = this.props.route.params.bgColor;
  
     return (
