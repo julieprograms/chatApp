@@ -191,7 +191,7 @@ export class Chat extends React.Component {
 }
 
 // Add messages to database
-addMessage() {
+addMessages() {
   const message = this.state.messages[0];
   // add a new message to the collection
   this.referenceChatMessages.add({
@@ -211,8 +211,8 @@ onSend(messages = []) {
       messages: GiftedChat.append(previousState.messages, messages),
     }),
     () => {
-      this.saveMessage();
-      this.addMessage();
+      this.saveMessages();
+      this.addMessages();
     });
 }
 
