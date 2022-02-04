@@ -107,7 +107,7 @@ export class Chat extends React.Component {
 
 
   // save messages on the asyncStorage
-	saveMessage = async () => {
+	saveMessages = async () => {
 		try {
 			await AsyncStorage.setItem(
 				'messages',
