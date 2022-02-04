@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView} from 'react-native';
-import { Bubble, Day, SystemMessage, GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, Day, SystemMessage, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -38,6 +42,7 @@ export class Chat extends React.Component {
 				name: '',
 				avatar: '',
 			},
+      isConnected: false,
 
     };
 
@@ -50,7 +55,7 @@ export class Chat extends React.Component {
 
     // reference to the Firestore messages collection
 		this.referenceChatMessages = firebase.firestore().collection('messages');
-
+    this.refMsgsUser = null;
 // To remove warning message in the console 
 //LogBox.ignoreLogs([
  // 'Warning: ...',
@@ -87,21 +92,74 @@ export class Chat extends React.Component {
 	};
 
 
+  // get messages from AsyncStorage
+	getMessages = async () => {
+		let messages = '';
+		try {
+			messages = (await AsyncStorage.getItem('messages')) || [];
+			this.setState({
+				messages: JSON.parse(messages),
+			});
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+
+  // save messages on the asyncStorage
+	saveMessage = async () => {
+		try {
+			await AsyncStorage.setItem(
+				'messages',
+				JSON.stringify(this.state.messages)
+			);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+
+
+	// delete message from asyncStorage
+	deleteMessages = async () => {
+		try {
+			await AsyncStorage.removeItem('messages');
+			this.setState({
+				messages: [],
+			});
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+
+
+
   componentDidMount() {
     // Set the page title once Chat is loaded
     let name  = this.props.route.params.name;
     // Adds the name to top of screen
     this.props.navigation.setOptions({ title: name })
 
+
+    // check if user is online
+		NetInfo.fetch().then(connection => {
+			if (connection.isConnected) {
+				this.setState({ isConnected: true });
+				console.log('online');
+				// listens for updates in the collection
+				this.unsubscribe = this.referenceChatMessages
+					.orderBy('createdAt', 'desc')
+					.onSnapshot(this.onCollectionUpdate);
+
+
     // user authentication
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
-        await firebase.auth().signInAnonymously();
+        return await firebase.auth().signInAnonymously();
       }
 
     
-    
-
        //update user state with currently active user data
       this.setState({
         uid: user.uid,
@@ -112,13 +170,25 @@ export class Chat extends React.Component {
           avatar: "https://placeimg.com/140/140/any",
         },
       });
-      // listens for updates in the collection
-      this.unsubscribe = this.referenceChatMessages
-        .orderBy("createdAt", "desc")
-        .onSnapshot(this.onCollectionUpdate)
+
+      //referencing messages of current user
+      this.refMsgsUser = firebase
+        .firestore()
+        .collection('messages')
+        .where('uid', '==', this.state.uid);
     });
 
-  }
+
+  // save messages locally to AsyncStorage
+  this.saveMessages();
+} else {
+  // if the user is offline
+  this.setState({ isConnected: false });
+  console.log('offline');
+  this.getMessages();
+}
+});
+}
 
 // Add messages to database
 addMessage() {
@@ -141,6 +211,7 @@ onSend(messages = []) {
       messages: GiftedChat.append(previousState.messages, messages),
     }),
     () => {
+      this.saveMessage();
       this.addMessage();
     });
 }
@@ -184,6 +255,13 @@ renderSystemMessage(props) {
     );
   }
 
+  //customizes input toolbar (hide if offline)
+  renderInputToolbar(props) {
+		if (this.state.isConnected == false) {
+		} else {
+			return <InputToolbar {...props} />;
+		}
+	}
 
 
 
@@ -202,7 +280,7 @@ renderSystemMessage(props) {
 
   render() {
    
-    
+
     let bgColor = this.props.route.params.bgColor;
  
     return (
@@ -215,6 +293,7 @@ renderSystemMessage(props) {
   renderBubble={this.renderBubble.bind(this)}
   renderSystemMessage={this.renderSystemMessage.bind(this)}
   renderDay={this.renderDay.bind(this)}
+  renderInputToolbar={this.renderInputToolbar.bind(this)}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
