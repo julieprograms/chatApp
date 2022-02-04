@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView, LogBox} from 'react-native';
-import { Bubble, Day, SystemMessage, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
+import { View, StyleSheet, Platform, KeyboardAvoidingView} from 'react-native';
+import { Bubble, Day, SystemMessage, GiftedChat } from 'react-native-gifted-chat';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
@@ -184,13 +184,7 @@ renderSystemMessage(props) {
     );
   }
 
-// customize Toolbar
-  renderInputToolbar(props) {
-		if (this.state.isConnected == false) {
-		} else {
-			return <InputToolbar {...props} />;
-		}
-	}
+
 
 
 
@@ -220,7 +214,6 @@ renderSystemMessage(props) {
   renderBubble={this.renderBubble.bind(this)}
   renderSystemMessage={this.renderSystemMessage.bind(this)}
   renderDay={this.renderDay.bind(this)}
-  renderInputToolbar={this.renderInputToolbar.bind(this)}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
