@@ -16,7 +16,7 @@ before joining the chat.
 and location data.
 - Data gets stored online and offline.
 
-Technical Requirements
+# Technical Requirements
 - The app must be written in React Native.
 - The app must be developed using Expo.
 - The app must be styled according to the given screen design.
