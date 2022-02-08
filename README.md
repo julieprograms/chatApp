@@ -3,6 +3,7 @@
 # Setting up Expo
 'npm install expo-cli --global'
 Download 'Expo App' for your phone.
+run 'expo install' in your console.
 
 # How to run the app
 To launch the app run 'expo start' or 'npm start'.
