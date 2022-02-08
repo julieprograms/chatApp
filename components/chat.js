@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView} from 'react-native';
+import React from 'react';
+import { View, StyleSheet} from 'react-native';
 import { Bubble, Day, SystemMessage, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
-
-import * as firebase from 'firebase';
-import 'firebase/firestore';
-
-
-
-
+import { Platform, KeyboardAvoidingView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
-
+import MapView from 'react-native-maps';
+import CustomActions from './CustomActions';
+import * as firebase from 'firebase';
+import "firebase/firestore";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -48,6 +45,8 @@ export class Chat extends React.Component {
 				avatar: '',
 			},
       isConnected: false,
+      image: null,
+      location: null,
 
     };
 
@@ -56,23 +55,20 @@ export class Chat extends React.Component {
       firebase.initializeApp(firebaseConfig);
      
     }
-    // const app = initializeApp(firebaseConfig);
-    // const analytics = getAnalytics(app);
+  
 
     // reference to the Firestore messages collection
 		this.referenceChatMessages = firebase.firestore().collection('messages');
     this.refMsgsUser = null;
-// To remove warning message in the console 
+
+    // To remove warning message in the console 
 //LogBox.ignoreLogs([
  // 'Warning: ...',
  // 'undefined',
  // 'Animated.event now requires a second argument for options',
 //]);
 
-
   };
-
-
 
 
   onCollectionUpdate = QuerySnapshot => {
@@ -85,11 +81,9 @@ export class Chat extends React.Component {
 				_id: data._id,
 				text: data.text,
 				createdAt: data.createdAt.toDate(),
-				user: {
-					_id: data.user._id,
-					name: data.user.name,
-					avatar: data.user.avatar,
-				},
+				user: data.user,
+        image: data.image || null,
+        location: data.location || null,
 			});
 		});
 		this.setState({
@@ -204,8 +198,36 @@ addMessages() {
     _id: message._id,
     text: message.text || '',
     createdAt: message.createdAt,
-    user: this.state.user
+    user: this.state.user,
+    image: message.image || '',
+    location: message.location || null
   });
+}
+
+
+// Returns a mapview when user adds a location to current message
+renderCustomView(props) {
+  const { currentMessage } = props;
+  if (currentMessage.location) {
+    return (
+      <MapView
+        style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+        region={{
+          latitude: currentMessage.location.latitude,
+          longitude: currentMessage.location.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
+    );
+  }
+  return null;
+ }
+
+
+ // action button to access custom features
+ renderCustomActions(props) {
+  return <CustomActions {...props} />;
 }
 
 
@@ -221,6 +243,7 @@ onSend(messages = []) {
       this.addMessages();
     });
 }
+
 
 //customizes text bubbles
 renderBubble(props) {
@@ -301,6 +324,8 @@ renderSystemMessage(props) {
   renderSystemMessage={this.renderSystemMessage.bind(this)}
   renderDay={this.renderDay.bind(this)}
   renderInputToolbar={this.renderInputToolbar.bind(this)}
+  renderActions={this.renderCustomActions}
+  renderCustomView={this.renderCustomView}
         messages={this.state.messages}
         onSend={(messages) => this.onSend(messages)}
         user={{
